@@ -3,20 +3,20 @@ serivces:
   - docker
 
 before_install:
-  - docker build -t ankurrathore/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t ankurrathore/react-test -f ./clients/Dockerfile.dev ./client
 
 script:
   - docker run -e CI=true ankurrathore/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t ankurrathore/multi-client ./client
+  - docker build -t ankurrathore/multi-clients ./clients
   - docker build -t ankurrathore/multi-nginx ./nginx
   - docker build -t ankurrathore/multi-server ./server
   - docker build -t ankurrathore/multi-worker ./worker
   # Login to the Docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # Pushing the images to Docker Hub
-  - docker push ankurrathore/multi-client
+  - docker push ankurrathore/multi-clients
   - docker push ankurrathore/multi-nginx
   - docker push ankurrathore/multi-server
   - docker push ankurrathore/multi-worker
