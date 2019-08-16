@@ -3,7 +3,7 @@ serivces:
   - docker
 
 before_install:
-  - docker build -t ankurrathore/react-test -f ./clients/Dockerfile.dev ./client
+  - docker build -t ankurrathore/react-test -f ./clients/Dockerfile.dev ./clients
 
 script:
   - docker run -e CI=true ankurrathore/react-test npm test -- --coverage
